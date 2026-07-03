@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خوش آمدید</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Vazirmatn,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#4f46e5);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:auto;
+}
+
+.card{
+width:95%;
+max-width:900px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(18px);
+border-radius:25px;
+padding:30px;
+text-align:center;
+color:#fff;
+box-shadow:0 0 40px rgba(0,0,0,.4);
+margin:30px;
+}
+
+h1{
+font-size:45px;
+margin-bottom:10px;
+}
+
+h2{
+font-size:30px;
+color:#ffd54f;
+margin-bottom:25px;
+}
+
+video{
+width:100%;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 0 30px rgba(0,0,0,.4);
+}
+
+button{
+background:#00c853;
+border:none;
+padding:16px 35px;
+font-size:20px;
+border-radius:50px;
+cursor:pointer;
+color:white;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+#box{
+display:none;
+margin-top:25px;
+}
+
+textarea{
+width:100%;
+height:140px;
+background:#111827;
+color:#00ff88;
+border:none;
+border-radius:12px;
+padding:15px;
+resize:none;
+font-size:14px;
+}
+
+.copy{
+margin-top:15px;
+background:#2962ff;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<h1>✨ خوش آمدید ✨</h1>
+
+<h2>سلام بر مهدی ❤️</h2>
+
+<video controls autoplay loop muted>
+<source src="video.mp4" type="video/mp4">
+</video>
+
+<button onclick="showConfig()">
+دریافت کانفیگ رایگان
+</button>
+
+<div id="box">
+
+<br>
+
+<textarea id="cfg" readonly>vless://Default@0.0.0.0:443?encryption=none&security=tls&sni=lu&fp=chrome&alpn=http%2F1.1&insecure=0&re=0&type=ws&host=lum&path=%2Fws%2FDefault#برگرد روبیکا</textarea>
+
+<br>
+
+<button class="copy" onclick="copyConfig()">
+📋 کپی کانفیگ
+</button>
+
+</div>
+
+</div>
+
+<script>
+function showConfig(){
+document.getElementById("box").style.display="block";
+}
+
+function copyConfig(){
+let txt=document.getElementById("cfg");
+navigator.clipboard.writeText(txt.value);
+alert("کانفیگ کپی شد ✅");
+}
+</script>
+
+</body>
+</html>
