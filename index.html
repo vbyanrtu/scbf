@@ -1,459 +1,243 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>ماتریکس · خوش آمدید</title>
-  <!-- Vazirmatn font -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    /* Reset & base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at 20% 30%, #0b0f1a, #03050b);
-      font-family: 'Vazirmatn', sans-serif;
-      padding: 1.5rem;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Matrix rain effect (light weight) */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(0deg, 
-        rgba(0, 255, 100, 0.02) 0px, 
-        rgba(0, 255, 100, 0.02) 2px, 
-        transparent 2px, 
-        transparent 6px);
-      pointer-events: none;
-      z-index: 0;
-      animation: matrixPulse 8s infinite alternate;
-    }
-
-    @keyframes matrixPulse {
-      0% { opacity: 0.3; }
-      100% { opacity: 0.8; }
-    }
-
-    /* Glowing orbs */
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .orb1 {
-      width: 400px;
-      height: 400px;
-      background: #00ff88;
-      top: -100px;
-      right: -100px;
-      animation: floatOrb 12s infinite alternate;
-    }
-    .orb2 {
-      width: 350px;
-      height: 350px;
-      background: #4f46e5;
-      bottom: -80px;
-      left: -80px;
-      animation: floatOrb 15s infinite alternate-reverse;
-    }
-    .orb3 {
-      width: 250px;
-      height: 250px;
-      background: #00ccff;
-      top: 40%;
-      left: 20%;
-      animation: floatOrb 18s infinite alternate;
-    }
-
-    @keyframes floatOrb {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(40px, 30px) scale(1.2); }
-    }
-
-    /* main card — glassmorphism with matrix vibe */
-    .card {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 960px;
-      background: rgba(8, 15, 28, 0.65);
-      backdrop-filter: blur(14px) saturate(180%);
-      -webkit-backdrop-filter: blur(14px) saturate(180%);
-      border: 1px solid rgba(0, 255, 150, 0.25);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 255, 150, 0.1) inset;
-      border-radius: 40px;
-      padding: 2rem 2rem 2.5rem;
-      text-align: center;
-      color: #e3f0e8;
-      transition: box-shadow 0.3s;
-    }
-
-    .card:hover {
-      box-shadow: 0 30px 80px rgba(0, 255, 150, 0.2), 0 0 0 1px rgba(0, 255, 150, 0.3) inset;
-    }
-
-    /* headings */
-    h1 {
-      font-size: 3.2rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      background: linear-gradient(135deg, #b3ffd9, #80ffb3, #33ff99);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 30px rgba(0, 255, 150, 0.3);
-      margin-bottom: 0.2rem;
-      word-break: break-word;
-    }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #b0ffd0;
-      text-shadow: 0 0 20px rgba(0, 255, 150, 0.3);
-      margin-bottom: 1.8rem;
-      letter-spacing: 1px;
-    }
-    h2 span {
-      display: inline-block;
-      animation: flicker 2.5s infinite;
-    }
-    @keyframes flicker {
-      0%, 100% { opacity: 1; text-shadow: 0 0 8px #00ff88; }
-      50% { opacity: 0.7; text-shadow: 0 0 20px #00ff88, 0 0 40px #00cc77; }
-    }
-
-    /* video wrapper — premium player */
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 255, 150, 0.2);
-      margin-bottom: 2rem;
-      background: #0b111e;
-      transition: transform 0.2s;
-    }
-
-    .video-wrapper video {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      background: #0a0f1a;
-      border: 0;
-      outline: none;
-      cursor: pointer;
-    }
-
-    /* custom video controls (subtle overlay) */
-    .video-wrapper::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 40%;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
-      pointer-events: none;
-    }
-
-    /* Buttons — Matrix style */
-    .btn {
-      background: transparent;
-      border: 1px solid rgba(0, 255, 150, 0.5);
-      padding: 0.9rem 2.4rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      border-radius: 60px;
-      cursor: pointer;
-      color: #d4ffe6;
-      transition: all 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      letter-spacing: 0.5px;
-      backdrop-filter: blur(4px);
-      background: rgba(0, 20, 10, 0.3);
-      box-shadow: 0 0 20px rgba(0, 255, 150, 0.1);
-      min-width: 200px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(145deg, #00c853, #00b34a);
-      border: 1px solid #00ff99;
-      color: #0a1f14;
-      font-weight: 900;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 30px rgba(0, 255, 150, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: scale(1.03) translateY(-2px);
-      box-shadow: 0 0 50px rgba(0, 255, 150, 0.6);
-      background: linear-gradient(145deg, #00e05a, #00c44a);
-    }
-
-    .btn-secondary {
-      background: rgba(0, 255, 150, 0.08);
-      border: 1px solid #2affa0;
-      color: #b3ffd9;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(0, 255, 150, 0.2);
-      border-color: #80ffbb;
-      box-shadow: 0 0 30px rgba(0, 255, 150, 0.2);
-      transform: scale(1.02);
-    }
-
-    .btn-copy {
-      background: rgba(40, 100, 255, 0.2);
-      border: 1px solid #4f8aff;
-      color: #b8d4ff;
-    }
-    .btn-copy:hover {
-      background: rgba(40, 100, 255, 0.35);
-      border-color: #80b0ff;
-      box-shadow: 0 0 30px rgba(40, 100, 255, 0.3);
-    }
-
-    /* config box */
-    #box {
-      display: none;
-      margin-top: 2rem;
-      animation: fadeSlide 0.5s ease;
-    }
-
-    @keyframes fadeSlide {
-      0% { opacity: 0; transform: translateY(14px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    textarea {
-      width: 100%;
-      height: 120px;
-      background: #0d1424;
-      color: #8effc0;
-      border: 1px solid rgba(0, 255, 150, 0.25);
-      border-radius: 18px;
-      padding: 1.2rem;
-      font-size: 0.95rem;
-      resize: vertical;
-      font-family: 'Vazirmatn', monospace;
-      direction: ltr;
-      text-align: left;
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
-      transition: border 0.2s;
-      letter-spacing: 0.3px;
-      line-height: 1.6;
-    }
-
-    textarea:focus {
-      border-color: #00ff99;
-      outline: none;
-      box-shadow: 0 0 30px rgba(0, 255, 150, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.6);
-    }
-
-    .row-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    /* responsive */
-    @media (max-width: 640px) {
-      .card { padding: 1.5rem; }
-      h1 { font-size: 2.4rem; }
-      h2 { font-size: 1.6rem; }
-      .btn { min-width: 160px; padding: 0.7rem 1.4rem; font-size: 1rem; }
-      textarea { font-size: 0.8rem; height: 100px; }
-    }
-
-    /* scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0b111e;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #00cc77;
-      border-radius: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماتریکس ویدیو | Matrix Experience</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&amp;display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: #000;
+            color: #00ff41;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            text-shadow: 0 0 20px #00ff41;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.5);
+            position: relative;
+        }
+        
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 70vh;
+        }
+        
+        .controls {
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(0, 20, 0, 0.9);
+        }
+        
+        button {
+            background: transparent;
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px #00ff41;
+        }
+        
+        button:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 20px #00ff41;
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .video-container {
+                max-width: 95%;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Glowing orbs -->
-  <div class="glow-orb orb1"></div>
-  <div class="glow-orb orb2"></div>
-  <div class="glow-orb orb3"></div>
-
-  <div class="card">
-    <h1>✨ خوش آمدید ✨</h1>
-    <h2><span>سلام بر مهدی ❤️</span></h2>
-
-    <!-- Video player: matrix style, autoplay, loop, muted -->
-    <div class="video-wrapper">
-      <video controls autoplay loop muted playsinline preload="metadata">
-        <source src="video.mp4" type="video/mp4">
-        <!-- fallback message if video missing -->
-        <p style="color:#b0ffd0; padding:2rem;">🎥 ویدیو در دسترس نیست</p>
-      </video>
+    <canvas id="matrix"></canvas>
+    
+    <div class="container">
+        <div class="header">
+            <h1>ماتریکس</h1>
+            <p class="subtitle">تجربه‌ای فراتر از واقعیت</p>
+        </div>
+        
+        <div class="video-container">
+            <video id="mainVideo" controls autoplay loop muted>
+                <source src="video.mp4" type="video/mp4">
+                مرورگر شما ویدیو را پشتیبانی نمی‌کند.
+            </video>
+        </div>
+        
+        <div class="controls">
+            <button onclick="togglePlay()">پخش / توقف</button>
+            <button onclick="toggleMute()">صدا / بی‌صدا</button>
+            <button onclick="toggleFullscreen()">تمام صفحه</button>
+        </div>
+        
+        <div class="footer">
+            ساخته شده با ❤️ برای تجربه ماتریکس • GitHub Pages
+        </div>
     </div>
 
-    <!-- primary button -->
-    <button class="btn btn-primary" onclick="showConfig()">
-      ⚡ دریافت کانفیگ رایگان
-    </button>
-
-    <!-- config box -->
-    <div id="box">
-      <textarea id="cfg" readonly>vless://Default@0.0.0.0:443?encryption=none&amp;security=tls&amp;sni=lu&amp;fp=chrome&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=lum&amp;path=%2Fws%2FDefault#%D8%A8%D8%B1%DA%AF%D8%B1%D8%AF%20%D8%B1%D9%88%D8%A8%DB%8C%DA%A9%D8%A7</textarea>
-
-      <div class="row-buttons">
-        <button class="btn btn-copy" onclick="copyConfig()">
-          📋 کپی کانفیگ
-        </button>
-        <!-- extra: close/hide config (optional) -->
-        <button class="btn btn-secondary" onclick="hideConfig()" style="min-width:120px;">
-          ✕ بستن
-        </button>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    // show config with smooth
-    function showConfig() {
-      const box = document.getElementById('box');
-      box.style.display = 'block';
-      // scroll into view (optional)
-      setTimeout(() => {
-        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 100);
-    }
-
-    // hide config
-    function hideConfig() {
-      document.getElementById('box').style.display = 'none';
-    }
-
-    // copy with modern clipboard + fallback
-    function copyConfig() {
-      const txt = document.getElementById('cfg');
-      const textToCopy = txt.value;
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(textToCopy)
-          .then(() => {
-            showAlert('✅ کانفیگ کپی شد');
-          })
-          .catch(() => {
-            fallbackCopy(textToCopy);
-          });
-      } else {
-        fallbackCopy(textToCopy);
-      }
-    }
-
-    // fallback for older browsers
-    function fallbackCopy(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      textarea.style.left = '-9999px';
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showAlert('✅ کانفیگ کپی شد');
-      } catch (e) {
-        showAlert('❌ کپی نشد، دستی کپی کن');
-      }
-      document.body.removeChild(textarea);
-    }
-
-    // elegant alert (matrix style)
-    function showAlert(msg) {
-      const existing = document.querySelector('.matrix-toast');
-      if (existing) existing.remove();
-
-      const toast = document.createElement('div');
-      toast.className = 'matrix-toast';
-      toast.textContent = msg;
-      Object.assign(toast.style, {
-        position: 'fixed',
-        bottom: '30px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: 'rgba(0, 20, 10, 0.9)',
-        backdropFilter: 'blur(10px)',
-        color: '#b3ffd9',
-        padding: '14px 32px',
-        borderRadius: '60px',
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-        border: '1px solid #00ff88',
-        boxShadow: '0 0 60px rgba(0, 255, 150, 0.3)',
-        zIndex: '9999',
-        fontFamily: 'Vazirmatn, sans-serif',
-        letterSpacing: '0.5px',
-        transition: 'opacity 0.3s',
-        opacity: '1',
-        direction: 'rtl'
-      });
-      document.body.appendChild(toast);
-
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 400);
-      }, 2500);
-    }
-
-    // if video fails to load, show message
-    document.addEventListener('DOMContentLoaded', function() {
-      const video = document.querySelector('video');
-      if (video) {
-        video.addEventListener('error', function() {
-          // if video missing, show fallback text inside wrapper
-          const wrapper = this.closest('.video-wrapper');
-          if (wrapper) {
-            const fallback = document.createElement('div');
-            fallback.style.cssText = 'padding:2rem; color:#80ffb3; font-size:1.2rem; background:#0b111e; text-align:center; min-height:200px; display:flex; align-items:center; justify-content:center;';
-            fallback.textContent = '🎬 ویدیو بارگذاری نشد (فایل video.mp4)';
-            wrapper.appendChild(fallback);
-            this.style.display = 'none';
-          }
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        const chars = '01アイウエオabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        
+        for (let x = 0; x < columns; x++) {
+            drops[x] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
+        
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff41';
+            ctx.font = `${fontSize}px monospace`;
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(draw, 33);
+        
+        // Video Controls
+        const video = document.getElementById('mainVideo');
+        
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+        
+        function toggleMute() {
+            video.muted = !video.muted;
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                video.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'k') {
+                e.preventDefault();
+                togglePlay();
+            } else if (e.key === 'm') {
+                toggleMute();
+            } else if (e.key === 'f') {
+                toggleFullscreen();
+            }
         });
-      }
-    });
-  </script>
-
+        
+        // Touch support for mobile
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, false);
+        
+        console.log('%cماتریکس آماده است! ویدیو video.mp4 را آپلود کنید.', 'color: #00ff41; font-size: 16px;');
+    </script>
 </body>
 </html>
