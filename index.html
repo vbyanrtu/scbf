@@ -1,142 +1,459 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خوش آمدید</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>ماتریکس · خوش آمدید</title>
+  <!-- Vazirmatn font -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 20% 30%, #0b0f1a, #03050b);
+      font-family: 'Vazirmatn', sans-serif;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Vazirmatn,sans-serif;
-}
+    /* Matrix rain effect (light weight) */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, 
+        rgba(0, 255, 100, 0.02) 0px, 
+        rgba(0, 255, 100, 0.02) 2px, 
+        transparent 2px, 
+        transparent 6px);
+      pointer-events: none;
+      z-index: 0;
+      animation: matrixPulse 8s infinite alternate;
+    }
 
-body{
-background:linear-gradient(135deg,#0f172a,#1e3a8a,#4f46e5);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:auto;
-}
+    @keyframes matrixPulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
 
-.card{
-width:95%;
-max-width:900px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(18px);
-border-radius:25px;
-padding:30px;
-text-align:center;
-color:#fff;
-box-shadow:0 0 40px rgba(0,0,0,.4);
-margin:30px;
-}
+    /* Glowing orbs */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb1 {
+      width: 400px;
+      height: 400px;
+      background: #00ff88;
+      top: -100px;
+      right: -100px;
+      animation: floatOrb 12s infinite alternate;
+    }
+    .orb2 {
+      width: 350px;
+      height: 350px;
+      background: #4f46e5;
+      bottom: -80px;
+      left: -80px;
+      animation: floatOrb 15s infinite alternate-reverse;
+    }
+    .orb3 {
+      width: 250px;
+      height: 250px;
+      background: #00ccff;
+      top: 40%;
+      left: 20%;
+      animation: floatOrb 18s infinite alternate;
+    }
 
-h1{
-font-size:45px;
-margin-bottom:10px;
-}
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.2); }
+    }
 
-h2{
-font-size:30px;
-color:#ffd54f;
-margin-bottom:25px;
-}
+    /* main card — glassmorphism with matrix vibe */
+    .card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 960px;
+      background: rgba(8, 15, 28, 0.65);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      border: 1px solid rgba(0, 255, 150, 0.25);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 255, 150, 0.1) inset;
+      border-radius: 40px;
+      padding: 2rem 2rem 2.5rem;
+      text-align: center;
+      color: #e3f0e8;
+      transition: box-shadow 0.3s;
+    }
 
-video{
-width:100%;
-border-radius:20px;
-margin-bottom:25px;
-box-shadow:0 0 30px rgba(0,0,0,.4);
-}
+    .card:hover {
+      box-shadow: 0 30px 80px rgba(0, 255, 150, 0.2), 0 0 0 1px rgba(0, 255, 150, 0.3) inset;
+    }
 
-button{
-background:#00c853;
-border:none;
-padding:16px 35px;
-font-size:20px;
-border-radius:50px;
-cursor:pointer;
-color:white;
-transition:.3s;
-}
+    /* headings */
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #b3ffd9, #80ffb3, #33ff99);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(0, 255, 150, 0.3);
+      margin-bottom: 0.2rem;
+      word-break: break-word;
+    }
 
-button:hover{
-transform:scale(1.05);
-}
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #b0ffd0;
+      text-shadow: 0 0 20px rgba(0, 255, 150, 0.3);
+      margin-bottom: 1.8rem;
+      letter-spacing: 1px;
+    }
+    h2 span {
+      display: inline-block;
+      animation: flicker 2.5s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; text-shadow: 0 0 8px #00ff88; }
+      50% { opacity: 0.7; text-shadow: 0 0 20px #00ff88, 0 0 40px #00cc77; }
+    }
 
-#box{
-display:none;
-margin-top:25px;
-}
+    /* video wrapper — premium player */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 255, 150, 0.2);
+      margin-bottom: 2rem;
+      background: #0b111e;
+      transition: transform 0.2s;
+    }
 
-textarea{
-width:100%;
-height:140px;
-background:#111827;
-color:#00ff88;
-border:none;
-border-radius:12px;
-padding:15px;
-resize:none;
-font-size:14px;
-}
+    .video-wrapper video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #0a0f1a;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+    }
 
-.copy{
-margin-top:15px;
-background:#2962ff;
-}
-</style>
+    /* custom video controls (subtle overlay) */
+    .video-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+      pointer-events: none;
+    }
 
+    /* Buttons — Matrix style */
+    .btn {
+      background: transparent;
+      border: 1px solid rgba(0, 255, 150, 0.5);
+      padding: 0.9rem 2.4rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      border-radius: 60px;
+      cursor: pointer;
+      color: #d4ffe6;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
+      background: rgba(0, 20, 10, 0.3);
+      box-shadow: 0 0 20px rgba(0, 255, 150, 0.1);
+      min-width: 200px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(145deg, #00c853, #00b34a);
+      border: 1px solid #00ff99;
+      color: #0a1f14;
+      font-weight: 900;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.03) translateY(-2px);
+      box-shadow: 0 0 50px rgba(0, 255, 150, 0.6);
+      background: linear-gradient(145deg, #00e05a, #00c44a);
+    }
+
+    .btn-secondary {
+      background: rgba(0, 255, 150, 0.08);
+      border: 1px solid #2affa0;
+      color: #b3ffd9;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 255, 150, 0.2);
+      border-color: #80ffbb;
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.2);
+      transform: scale(1.02);
+    }
+
+    .btn-copy {
+      background: rgba(40, 100, 255, 0.2);
+      border: 1px solid #4f8aff;
+      color: #b8d4ff;
+    }
+    .btn-copy:hover {
+      background: rgba(40, 100, 255, 0.35);
+      border-color: #80b0ff;
+      box-shadow: 0 0 30px rgba(40, 100, 255, 0.3);
+    }
+
+    /* config box */
+    #box {
+      display: none;
+      margin-top: 2rem;
+      animation: fadeSlide 0.5s ease;
+    }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(14px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      background: #0d1424;
+      color: #8effc0;
+      border: 1px solid rgba(0, 255, 150, 0.25);
+      border-radius: 18px;
+      padding: 1.2rem;
+      font-size: 0.95rem;
+      resize: vertical;
+      font-family: 'Vazirmatn', monospace;
+      direction: ltr;
+      text-align: left;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+      transition: border 0.2s;
+      letter-spacing: 0.3px;
+      line-height: 1.6;
+    }
+
+    textarea:focus {
+      border-color: #00ff99;
+      outline: none;
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .row-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* responsive */
+    @media (max-width: 640px) {
+      .card { padding: 1.5rem; }
+      h1 { font-size: 2.4rem; }
+      h2 { font-size: 1.6rem; }
+      .btn { min-width: 160px; padding: 0.7rem 1.4rem; font-size: 1rem; }
+      textarea { font-size: 0.8rem; height: 100px; }
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b111e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #00cc77;
+      border-radius: 20px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="card">
+  <!-- Glowing orbs -->
+  <div class="glow-orb orb1"></div>
+  <div class="glow-orb orb2"></div>
+  <div class="glow-orb orb3"></div>
 
-<h1>✨ خوش آمدید ✨</h1>
+  <div class="card">
+    <h1>✨ خوش آمدید ✨</h1>
+    <h2><span>سلام بر مهدی ❤️</span></h2>
 
-<h2>سلام بر مهدی ❤️</h2>
+    <!-- Video player: matrix style, autoplay, loop, muted -->
+    <div class="video-wrapper">
+      <video controls autoplay loop muted playsinline preload="metadata">
+        <source src="video.mp4" type="video/mp4">
+        <!-- fallback message if video missing -->
+        <p style="color:#b0ffd0; padding:2rem;">🎥 ویدیو در دسترس نیست</p>
+      </video>
+    </div>
 
-<video controls autoplay loop muted>
-<source src="video.mp4" type="video/mp4">
-</video>
+    <!-- primary button -->
+    <button class="btn btn-primary" onclick="showConfig()">
+      ⚡ دریافت کانفیگ رایگان
+    </button>
 
-<button onclick="showConfig()">
-دریافت کانفیگ رایگان
-</button>
+    <!-- config box -->
+    <div id="box">
+      <textarea id="cfg" readonly>vless://Default@0.0.0.0:443?encryption=none&amp;security=tls&amp;sni=lu&amp;fp=chrome&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=lum&amp;path=%2Fws%2FDefault#%D8%A8%D8%B1%DA%AF%D8%B1%D8%AF%20%D8%B1%D9%88%D8%A8%DB%8C%DA%A9%D8%A7</textarea>
 
-<div id="box">
+      <div class="row-buttons">
+        <button class="btn btn-copy" onclick="copyConfig()">
+          📋 کپی کانفیگ
+        </button>
+        <!-- extra: close/hide config (optional) -->
+        <button class="btn btn-secondary" onclick="hideConfig()" style="min-width:120px;">
+          ✕ بستن
+        </button>
+      </div>
+    </div>
 
-<br>
+  </div>
 
-<textarea id="cfg" readonly>vless://Default@0.0.0.0:443?encryption=none&security=tls&sni=lu&fp=chrome&alpn=http%2F1.1&insecure=0&allowInsecure=0&type=ws&host=lum&path=%2Fws%2FDefault#%D8%A8%D8%B1%DA%AF%D8%B1%D8%AF%20%D8%B1%D9%88%D8%A8%DB%8C%DA%A9%D8%A7</textarea>
+  <script>
+    // show config with smooth
+    function showConfig() {
+      const box = document.getElementById('box');
+      box.style.display = 'block';
+      // scroll into view (optional)
+      setTimeout(() => {
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
 
-<br>
+    // hide config
+    function hideConfig() {
+      document.getElementById('box').style.display = 'none';
+    }
 
-<button class="copy" onclick="copyConfig()">
-📋 کپی کانفیگ
-</button>
+    // copy with modern clipboard + fallback
+    function copyConfig() {
+      const txt = document.getElementById('cfg');
+      const textToCopy = txt.value;
 
-</div>
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy)
+          .then(() => {
+            showAlert('✅ کانفیگ کپی شد');
+          })
+          .catch(() => {
+            fallbackCopy(textToCopy);
+          });
+      } else {
+        fallbackCopy(textToCopy);
+      }
+    }
 
-</div>
+    // fallback for older browsers
+    function fallbackCopy(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showAlert('✅ کانفیگ کپی شد');
+      } catch (e) {
+        showAlert('❌ کپی نشد، دستی کپی کن');
+      }
+      document.body.removeChild(textarea);
+    }
 
-<script>
-function showConfig(){
-document.getElementById("box").style.display="block";
-}
+    // elegant alert (matrix style)
+    function showAlert(msg) {
+      const existing = document.querySelector('.matrix-toast');
+      if (existing) existing.remove();
 
-function copyConfig(){
-let txt=document.getElementById("cfg");
-navigator.clipboard.writeText(txt.value);
-alert("کانفیگ کپی شد ✅");
-}
-</script>
+      const toast = document.createElement('div');
+      toast.className = 'matrix-toast';
+      toast.textContent = msg;
+      Object.assign(toast.style, {
+        position: 'fixed',
+        bottom: '30px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        background: 'rgba(0, 20, 10, 0.9)',
+        backdropFilter: 'blur(10px)',
+        color: '#b3ffd9',
+        padding: '14px 32px',
+        borderRadius: '60px',
+        fontSize: '1.1rem',
+        fontWeight: 'bold',
+        border: '1px solid #00ff88',
+        boxShadow: '0 0 60px rgba(0, 255, 150, 0.3)',
+        zIndex: '9999',
+        fontFamily: 'Vazirmatn, sans-serif',
+        letterSpacing: '0.5px',
+        transition: 'opacity 0.3s',
+        opacity: '1',
+        direction: 'rtl'
+      });
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+      }, 2500);
+    }
+
+    // if video fails to load, show message
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('video');
+      if (video) {
+        video.addEventListener('error', function() {
+          // if video missing, show fallback text inside wrapper
+          const wrapper = this.closest('.video-wrapper');
+          if (wrapper) {
+            const fallback = document.createElement('div');
+            fallback.style.cssText = 'padding:2rem; color:#80ffb3; font-size:1.2rem; background:#0b111e; text-align:center; min-height:200px; display:flex; align-items:center; justify-content:center;';
+            fallback.textContent = '🎬 ویدیو بارگذاری نشد (فایل video.mp4)';
+            wrapper.appendChild(fallback);
+            this.style.display = 'none';
+          }
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
